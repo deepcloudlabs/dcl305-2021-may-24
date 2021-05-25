@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {MastermindService} from "./mastermind.service";
 import {StatisticService} from "./statistic.service";
+import {MastermindGame} from "../model/mastermind";
 
 /**
  *    level = 3
@@ -19,5 +20,9 @@ import {StatisticService} from "./statistic.service";
 export class AppComponent {
   title = 'mastermind';
   constructor(private mastermindSrv: MastermindService, private statisticSrv: StatisticService) {
+  }
+  play(){}
+  get game(): MastermindGame {
+    return this.mastermindSrv.mastermindGame;
   }
 }
