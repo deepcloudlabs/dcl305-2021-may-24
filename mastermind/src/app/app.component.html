@@ -35,7 +35,13 @@
               <th>Evaluation</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            <tr *ngFor="let move of game.moves; let i = index">
+              <td>{{i+1}}</td>
+              <td>{{move.guess}}</td>
+              <td>{{move.evaluation}}</td>
+            </tr>
+          </tbody>
         </table>
     </div>
   </div>

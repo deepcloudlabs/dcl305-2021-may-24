@@ -21,7 +21,9 @@ export class AppComponent {
   title = 'mastermind';
   constructor(private mastermindSrv: MastermindService, private statisticSrv: StatisticService) {
   }
-  play(){}
+  play(){
+    this.mastermindSrv.play();
+  }
   get game(): MastermindGame {
     return this.mastermindSrv.mastermindGame;
   }
