@@ -9,6 +9,8 @@ import { HistoryComponent } from './history/history.component';
 import { EvaluationComponent } from './evaluation/evaluation.component';
 import { WinsComponent } from './wins/wins.component';
 import { LosesComponent } from './loses/loses.component';
+import { LandingpageComponent } from './landingpage/landingpage.component';
+import { StatisticComponent } from './statistic/statistic.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { LosesComponent } from './loses/loses.component';
     HistoryComponent,
     EvaluationComponent,
     WinsComponent,
-    LosesComponent
+    LosesComponent,
+    LandingpageComponent,
+    StatisticComponent
   ],
   imports: [
     BrowserModule,
@@ -25,6 +29,6 @@ import { LosesComponent } from './loses/loses.component';
     AppRoutingModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [LandingpageComponent]
 })
 export class AppModule { }

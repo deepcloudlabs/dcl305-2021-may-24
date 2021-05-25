@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {MastermindGame} from "../model/mastermind";
 import {formatNumber} from "@angular/common";
 import {Move} from "../model/move";
+import {StatisticService} from "./statistic.service";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +12,17 @@ export class MastermindService {
   mastermindGame = new MastermindGame();
   private secret: number = this.createSecret(this.mastermindGame.gameLevel);
 
-  constructor() {
+  constructor(private statisticSrv : StatisticService, private router : Router) {
   }
 
   play(): void {
     this.mastermindGame.tries++;
     if (this.mastermindGame.guess == this.secret) {
       if (this.mastermindGame.gameLevel == 10) {
-        //TODO: Player wins!
+        this.statisticSrv.playerWins();
+        this.mastermindGame.reset();
+        this.mastermindGame.gameLevel=3;
+        this.router.navigate(["wins"]);
       } else {
         this.mastermindGame.gameLevel++
         this.mastermindGame.reset();
@@ -25,7 +30,9 @@ export class MastermindService {
       }
     } else {
       if (this.mastermindGame.tries > 10) {
-        //TODO: Player loses!
+        this.statisticSrv.playerLoses();
+        this.mastermindGame.reset();
+        this.router.navigate(["loses"]);
       } else {
         this.mastermindGame.moves.push(this.createMove(this.mastermindGame.guess, this.secret));
       }
@@ -40,7 +47,9 @@ export class MastermindService {
       if (!digits.includes(digit))
         digits.push(digit);
     }
-    return digits.reduce((sum, digit) => 10 * sum + digit, 0);
+    let response = digits.reduce((sum, digit) => 10 * sum + digit, 0);
+    console.log(response);
+    return response;
   }
 
   private createDigit(min: number, max: number): number {

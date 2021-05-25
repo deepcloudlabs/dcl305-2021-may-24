@@ -3,12 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 import {AppComponent} from "./app.component";
 import {WinsComponent} from "./wins/wins.component";
 import {LosesComponent} from "./loses/loses.component";
+import {LandingpageComponent} from "./landingpage/landingpage.component";
+import {StatisticComponent} from "./statistic/statistic.component";
 
 const routes: Routes = [
   {path: "gameconsole", component: AppComponent},
+  {path: "statistic", component: StatisticComponent},
   {path: "wins", component: WinsComponent},
   {path: "loses", component: LosesComponent},
-  {path: "**", redirectTo:"gameconsole"}
+  {path: "", component: LandingpageComponent}
 ];
 
 @NgModule({
