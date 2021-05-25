@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {LotteryService} from "./lottery.service";
+import {NgModel} from "@angular/forms";
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,7 @@ export class AppComponent { // View Model <-- 2-way binding --> View
   lotteryNumbers: Array<Array<number>> = [];
   column: number = 3;
   columns = Array.from<number>(Array<number>(6).keys()).map( x => x + 1);
+
   constructor(private lotterySrv : LotteryService) { // dependency injection
   }
   removeRow(rowId : number) : void {
@@ -32,4 +34,5 @@ export class AppComponent { // View Model <-- 2-way binding --> View
     this.lotteryNumbers.push(removed[0]);
     rest.forEach( nums => this.lotteryNumbers.push(nums) );
   }
+
 }
