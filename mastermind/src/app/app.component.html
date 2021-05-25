@@ -14,6 +14,10 @@
         <span class="badge badge-info" id="tries">{{game.tries}}</span>
       </div>
       <div class="form-group">
+        <label for="counter">Counter:</label>
+        <span class="badge badge-info" id="counter">{{game.counter}}</span>
+      </div>
+      <div class="form-group">
         <label for="guess">Guess:</label>
         <input type="number" class="form-control" id="guess" [(ngModel)]="game.guess">
       </div>

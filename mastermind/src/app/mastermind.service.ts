@@ -4,7 +4,8 @@ import {formatNumber} from "@angular/common";
 import {Move} from "../model/move";
 import {StatisticService} from "./statistic.service";
 import {Router} from "@angular/router";
-
+// setInterval( function, 1000);
+// setTimeout(function, 60000)
 @Injectable({
   providedIn: 'root'
 })
@@ -13,8 +14,17 @@ export class MastermindService {
   private secret: number = this.createSecret(this.mastermindGame.gameLevel);
 
   constructor(private statisticSrv : StatisticService, private router : Router) {
+    this.countdown = this.countdown.bind(this);
+    window.setInterval(this.countdown, 1000);
   }
-
+  countdown(){
+    this.mastermindGame.counter--;
+    if (this.mastermindGame.counter <= 0){
+      this.statisticSrv.playerLoses();
+      this.mastermindGame.reset();
+      this.router.navigate(["loses"]);
+    }
+  }
   play(): void {
     this.mastermindGame.tries++;
     if (this.mastermindGame.guess == this.secret) {
