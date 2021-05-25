@@ -13,25 +13,41 @@ export class MastermindService {
   mastermindGame = new MastermindGame();
   private secret: number = this.createSecret(this.mastermindGame.gameLevel);
 
-  constructor(private statisticSrv : StatisticService, private router : Router) {
+  constructor(private statisticSrv: StatisticService, private router: Router) {
     this.countdown = this.countdown.bind(this);
+    this.play = this.play.bind(this);
     window.setInterval(this.countdown, 1000);
+    let mastermindLocalStorage = localStorage.getItem("mastermind");
+    if (mastermindLocalStorage != null && mastermindLocalStorage != undefined) {
+      let restoredState = JSON.parse(mastermindLocalStorage);
+      if (restoredState.hasOwnProperty("mastermindGame"))
+        this.mastermindGame.init(restoredState.mastermindGame);
+      if (restoredState.hasOwnProperty("secret"))
+        this.secret = restoredState.secret;
+      if (restoredState.hasOwnProperty("stat")) {
+        this.statisticSrv.stat.wins = restoredState.stat.wins;
+        this.statisticSrv.stat.loses = restoredState.stat.loses;
+      }
+    }
+
   }
-  countdown(){
+
+  countdown() {
     this.mastermindGame.counter--;
-    if (this.mastermindGame.counter <= 0){
+    if (this.mastermindGame.counter <= 0) {
       this.statisticSrv.playerLoses();
       this.mastermindGame.reset();
       this.router.navigate(["loses"]);
     }
   }
+
   play(): void {
     this.mastermindGame.tries++;
     if (this.mastermindGame.guess == this.secret) {
       if (this.mastermindGame.gameLevel == 10) {
         this.statisticSrv.playerWins();
         this.mastermindGame.reset();
-        this.mastermindGame.gameLevel=3;
+        this.mastermindGame.gameLevel = 3;
         this.router.navigate(["wins"]);
       } else {
         this.mastermindGame.gameLevel++
@@ -47,6 +63,7 @@ export class MastermindService {
         this.mastermindGame.moves.push(this.createMove(this.mastermindGame.guess, this.secret));
       }
     }
+    localStorage.setItem("mastermind", JSON.stringify({secret: this.secret, mastermindGame: this.mastermindGame, stat: this.statisticSrv.stat}));
   }
 
   private createSecret(level: number): number {
