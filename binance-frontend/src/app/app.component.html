@@ -1,0 +1,20 @@
+<p></p>
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h1 class="card-title">Market Chart</h1>
+    </div>
+    <div class="card-body">
+      <div>
+        <canvas baseChart
+                width="720"
+                height="480"
+                [datasets]="market.tradesChartData"
+                [labels]="market.tradesChartLabels"
+                [options]="chartOptions"
+                [legend]="true"
+                [chartType]="'line'"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
