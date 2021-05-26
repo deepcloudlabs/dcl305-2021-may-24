@@ -6,22 +6,79 @@
     </div>
     <div class="card-body">
       <div class="form-group">
-         <label for="identity">Identity No:</label>
+        <label for="identity">Identity No:</label>
         <input type="text"
                id="identity"
                class="form-control"
                [(ngModel)]="employee.identityNo">
       </div>
+      <div class="form-group">
+        <label for="fullname">Full name:</label>
+        <input type="text"
+               id="fullname"
+               class="form-control"
+               [(ngModel)]="employee.fullname">
+      </div>
+      <div class="form-group">
+        <label for="iban">Iban:</label>
+        <input type="text"
+               id="iban"
+               class="form-control"
+               [(ngModel)]="employee.iban">
+      </div>
+      <div class="form-group">
+        <label for="salary">Salary:</label>
+        <input type="text"
+               id="salary"
+               class="form-control"
+               [(ngModel)]="employee.salary">
+      </div>
+      <div class="form-group">
+        <label for="birthYear">Birth Year:</label>
+        <input type="text"
+               id="birthYear"
+               class="form-control"
+               [(ngModel)]="employee.birthYear">
+      </div>
+      <div class="form-group">
+        <label for="department">Department:</label>
+        <select id="department"
+                class="form-control"
+                [(ngModel)]="employee.department">
+          <option>IT</option>
+          <option>Sales</option>
+          <option>Finance</option>
+          <option>HR</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="photo">Photo:</label>
+        <img style="width: 64px; height: 64px;"
+             id="photo"
+             [src]="employee.photo">
+        <label class="btn btn-info btn-file">
+          <input type="file"
+                 (change)="loadPhoto($event)"
+                 style="display: none;">
+          <span>Browse</span>
+        </label>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-success">Find By Identity</button>
+        <button class="btn btn-success">Hire Employee</button>
+        <button class="btn btn-warning">Update Employee</button>
+        <button class="btn btn-danger">Fire Employee</button>
+        <button class="btn btn-info">Retrieve Employees</button>
+     </div>
     </div>
-  </div>
-  <p></p>
-  <div class="card">
-    <div class="card-header">
-      <h3 class="card-title">Employees</h3>
-    </div>
-    <div class="card-body">
-      <table class="table table-hover table-bordered table-striped table-responsive">
-        <thead>
+    <p></p>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Employees</h3>
+      </div>
+      <div class="card-body">
+        <table class="table table-hover table-bordered table-striped table-responsive">
+          <thead>
           <tr>
             <th>No</th>
             <th>Photo</th>
@@ -32,9 +89,9 @@
             <th>Department</th>
             <th>Full-time?</th>
           </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
     </div>
   </div>
-</div>
