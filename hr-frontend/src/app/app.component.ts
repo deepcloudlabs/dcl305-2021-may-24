@@ -2,14 +2,24 @@ import {Component, OnInit} from '@angular/core';
 import {Employee} from "../model/employee";
 import {HrService} from "./hr.service";
 
+/*
+enum Department {
+  IT= "IT",
+  SALES ="Sales",
+  HR = "HR",
+  FINANCE = "Finance"
+}
+
+dept : Department = Department.SALES;
+*/
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'hr-frontend';
-  employee : Employee = new Employee(
+  employee: Employee = new Employee(
     "11111111110",
     "Jack Shephard",
     "TR460950435082679887484085",
@@ -19,14 +29,22 @@ export class AppComponent implements OnInit {
     "Finance",
     true
   );
-  employees : Array<Employee> = [];
-  constructor(private hrSrv : HrService) {
-  }
-  ngOnInit(): void {
+  employees: Array<Employee> = [];
 
+  constructor(private hrSrv: HrService) {
   }
-  loadPhoto(e : any) : void {
-    let reader : FileReader = new FileReader();
+
+  get totalSalary() : number { // property
+     return this.employees.map( emp => emp.salary).reduce((sum,salary) => sum+salary , 0.0);
+  }
+
+  get averageSalary() : number { // property
+    if (this.employees.length == 0) return 0.0;
+     return this.totalSalary / this.employees.length;
+  }
+
+  loadPhoto(e: any): void {
+    let reader: FileReader = new FileReader();
     reader.onload = (evt) => {
       this.employee.photo = reader.result as string;
     }
@@ -34,27 +52,34 @@ export class AppComponent implements OnInit {
   }
 
   findByIdentity() {
-      this.hrSrv.findEmployeeByIdentity(this.employee.identityNo)
-                .subscribe( emp => this.employee = emp );
+    this.hrSrv.findEmployeeByIdentity(this.employee.identityNo)
+      .subscribe(emp => this.employee = emp);
   }
 
   hireEmployee() {
     this.hrSrv.hireEmployee(this.employee)
-              .subscribe( emp => console.table(emp));
+      .subscribe(emp => console.table(emp));
   }
 
   updateEmployee() {
     this.hrSrv.updateEmployee(this.employee)
-      .subscribe( emp => console.table(emp));
+      .subscribe(emp => console.table(emp));
   }
 
   fireEmployee() {
     this.hrSrv.fireEmployee(this.employee.identityNo)
-              .subscribe( emp => this.employee = emp );
+      .subscribe(emp => this.employee = emp);
   }
 
   retrieveEmployees() {
     this.hrSrv.findEmployees()
-              .subscribe( (employees : Employee[] ) => this.employees = employees );
+      .subscribe((employees: Employee[]) => this.employees = employees);
+  }
+
+  fireEmployeeByIdentity(identityNo: string) {
+    this.hrSrv.fireEmployee(identityNo).subscribe(emp => {
+      this.employee = emp;
+      this.employees = this.employees.filter(e => e.identityNo != identityNo);
+    });
   }
 }

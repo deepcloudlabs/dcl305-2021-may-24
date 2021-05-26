@@ -10,6 +10,8 @@
         <input type="text"
                id="identity"
                class="form-control"
+               required
+               tckimlikno
                [(ngModel)]="employee.identityNo">
       </div>
       <div class="form-group">
@@ -17,6 +19,9 @@
         <input type="text"
                id="fullname"
                class="form-control"
+               required
+               [minLength]="5"
+               pattern="[a-zA-Z ]+"
                [(ngModel)]="employee.fullname">
       </div>
       <div class="form-group">
@@ -31,6 +36,7 @@
         <input type="text"
                id="salary"
                class="form-control"
+               [min]="2000"
                [(ngModel)]="employee.salary">
       </div>
       <div class="form-group">
@@ -38,6 +44,8 @@
         <input type="text"
                id="birthYear"
                class="form-control"
+               [min]="1950"
+               [max]="2006"
                [(ngModel)]="employee.birthYear">
       </div>
       <div class="form-group">
@@ -103,10 +111,23 @@
                 <td>{{emp.identityNo}}</td>
                 <td>{{emp.fullname}}</td>
                 <td>{{emp.iban}}</td>
-                <td>{{emp.salary}}</td>
+                <td>{{emp.salary | currency : '\u20ba'}}</td>
                 <td><span class="badge badge-info">{{emp.department}}</span></td>
                 <td><span class="badge badge-info">{{emp.fulltime ? 'FULL TIME' : 'PART TIME'}}</span></td>
-                <td><button class="btn btn-danger">Fire</button></td>
+                <td><button (click)="fireEmployeeByIdentity(emp.identityNo)"
+                            class="btn btn-danger">Fire Employee</button></td>
+            </tr>
+            <tr>
+              <td colSpan="4"></td>
+              <th>Total Salary:</th>
+              <td>{{totalSalary | currency : '\u20ba'}}</td>
+              <td colSpan="3"></td>
+            </tr>
+            <tr>
+              <td colSpan="4"></td>
+              <th>Average Salary:</th>
+              <td>{{averageSalary | currency : '\u20ba'}}</td>
+              <td colSpan="3"></td>
             </tr>
           </tbody>
         </table>

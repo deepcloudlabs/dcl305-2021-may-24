@@ -5,10 +5,17 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { TckimliknoDirective } from './tckimlikno.directive';
+import { IbanDirective } from './iban.directive';
+import { NumberDirective } from './number.directive';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TckimliknoDirective,
+    IbanDirective,
+    NumberDirective
+
   ],
   imports: [
     BrowserModule,
