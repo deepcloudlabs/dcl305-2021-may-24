@@ -2,7 +2,7 @@ import {Trade} from "./trade";
 
 export class Market {
     trades : Array<Trade> = [];
-    tradesCharData : Array<any> = [
+    tradesChartData : Array<any> = [
       {
         data : [],
         label: "BTCUSDT"
