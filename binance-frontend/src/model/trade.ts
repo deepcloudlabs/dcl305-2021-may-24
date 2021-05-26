@@ -6,4 +6,9 @@ export class Trade {
     public timestamp : number = 1
   ) {
   }
+
+
+  get volume() : number {
+      return Number(this.price) * Number(this.quantity);
+  }
 }

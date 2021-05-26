@@ -9,4 +9,8 @@ export class Market {
       }
     ];
     tradesChartLabels : Array<string> = [];
+
+    get volume() : number {
+      return this.trades.map(trade => trade.volume).reduce((sum,vol) => sum+vol, 0.0);
+    }
 }
