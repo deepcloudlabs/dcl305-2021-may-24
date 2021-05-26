@@ -34,19 +34,23 @@ export class AppComponent implements OnInit {
   }
 
   findByIdentity() {
-
+      this.hrSrv.findEmployeeByIdentity(this.employee.identityNo)
+                .subscribe( emp => this.employee = emp );
   }
 
   hireEmployee() {
-
+    this.hrSrv.hireEmployee(this.employee)
+              .subscribe( emp => console.table(emp));
   }
 
   updateEmployee() {
-
+    this.hrSrv.updateEmployee(this.employee)
+      .subscribe( emp => console.table(emp));
   }
 
   fireEmployee() {
-
+    this.hrSrv.fireEmployee(this.employee.identityNo)
+              .subscribe( emp => this.employee = emp );
   }
 
   retrieveEmployees() {
