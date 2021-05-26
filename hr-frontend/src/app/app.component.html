@@ -64,11 +64,16 @@
         </label>
       </div>
       <div class="form-group">
-        <button class="btn btn-success">Find By Identity</button>
-        <button class="btn btn-success">Hire Employee</button>
-        <button class="btn btn-warning">Update Employee</button>
-        <button class="btn btn-danger">Fire Employee</button>
-        <button class="btn btn-info">Retrieve Employees</button>
+        <button (click)="findByIdentity()"
+                 class="btn btn-success">Find By Identity</button>
+        <button (click)="hireEmployee()"
+                class="btn btn-success">Hire Employee</button>
+        <button (click)="updateEmployee()"
+                class="btn btn-warning">Update Employee</button>
+        <button (click)="fireEmployee()"
+                class="btn btn-danger">Fire Employee</button>
+        <button (click)="retrieveEmployees()"
+                class="btn btn-info">Retrieve Employees</button>
      </div>
     </div>
     <p></p>
@@ -88,9 +93,22 @@
             <th>Salary</th>
             <th>Department</th>
             <th>Full-time?</th>
+            <th>Operations</th>
           </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            <tr *ngFor="let emp of employees; let i = index">
+                <td>{{i+1}}</td>
+                <td><img [src]="emp.photo" style="width: 32px; height: 32px;"></td>
+                <td>{{emp.identityNo}}</td>
+                <td>{{emp.fullname}}</td>
+                <td>{{emp.iban}}</td>
+                <td>{{emp.salary}}</td>
+                <td><span class="badge badge-info">{{emp.department}}</span></td>
+                <td><span class="badge badge-info">{{emp.fulltime ? 'FULL TIME' : 'PART TIME'}}</span></td>
+                <td><button class="btn btn-danger">Fire</button></td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </div>

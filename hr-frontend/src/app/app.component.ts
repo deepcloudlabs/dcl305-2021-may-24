@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Employee} from "../model/employee";
+import {HrService} from "./hr.service";
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,8 @@ export class AppComponent implements OnInit {
     true
   );
   employees : Array<Employee> = [];
-
+  constructor(private hrSrv : HrService) {
+  }
   ngOnInit(): void {
 
   }
@@ -29,5 +31,26 @@ export class AppComponent implements OnInit {
       this.employee.photo = reader.result as string;
     }
     reader.readAsDataURL(e.target.files[0]); // async method
+  }
+
+  findByIdentity() {
+
+  }
+
+  hireEmployee() {
+
+  }
+
+  updateEmployee() {
+
+  }
+
+  fireEmployee() {
+
+  }
+
+  retrieveEmployees() {
+    this.hrSrv.findEmployees()
+              .subscribe( (employees : Employee[] ) => this.employees = employees );
   }
 }
